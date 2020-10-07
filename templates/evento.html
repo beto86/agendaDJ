@@ -4,22 +4,24 @@
 
 <h2>Evento</h2>
 <form action="submit" method="POST">{% csrf_token %}
-    <br>
     <label>Título</label>
-    <input type="text" name="titulo" size="22">
+	<input type="number" name="id_evento" value="{{ evento.id }}" hidden>
     <br>
-    <label>Datado Evento:</label>
-    <br>
-    <input type="datetime-local" name="data_evento">
-    <br>
-    <label>Descrição</label>
-    <br>
-    <textarea name="descricao" rows="5" cols="20"></textarea>
-    <br><br>
-    <button type="submit">Salvar</button>
-    <ahref="/">
-        <button type="button">Cancelar</button>
-    </a>
+	<input type="text" name="titulo" size="22" value="{{ evento.titulo }}">
+	<br>
+	<label>Datado Evento:</label>
+	<br>
+	<input type="datetime-local" name="data_evento" value="{{ evento.get_data_input_evento }}">
+	<br>
+	<label>Descrição</label>
+	<br>
+	<textarea name="descricao" rows="5" cols="20">{{ evento.descricao }}</textarea>
+	<br><br>
+	<button type="submit">Salvar</button>
+	<ahref="/">
+		<button type="button">Cancelar</button>
+	</a>
+
 </form>
 
 {% endblock %}
