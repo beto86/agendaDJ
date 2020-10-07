@@ -3,7 +3,7 @@ from core.models import Evento
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from datetime import datetime, timedelta
 
 # Create your views here.
 def index(request):
@@ -32,7 +32,9 @@ def submit_login(request):
 @login_required(login_url='/login/')#autentica para permitir somente usuarios logados, é um decorador
 def lista_eventos(request):
 	usuario = request.user
-	evento = Evento.objects.filter(usuario=usuario)  # lista os eventos por usuario
+	data_atual = datetime.now() - timedelta(hours=1) #vai aparecer i hora atrazado
+	evento = Evento.objects.filter(usuario=usuario,
+								   data_evento__gt=data_atual)  # lista os eventos por usuario, e apartir da data atual
 	dados = {'eventos':evento}
 	return render(request, 'agenda.html', dados)
 
